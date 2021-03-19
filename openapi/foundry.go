@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 	"sync"
+        "strconv"
 
 	"github.com/getkin/kin-openapi/openapi2"
 	"github.com/getkin/kin-openapi/openapi3"
@@ -170,7 +171,7 @@ func (f *foapiv2) getTypeFromSchema(elem *openapi3.Schema, stackdepth uint64) (t
 	}
 
 	if elem == nil {
-		return nil, errors.New("cannot convert OpenAPI type (nil)")
+		return nil, errors.New("cannot convert OpenAPI type (nil) at depth: " + strconv.FormatUint(stackdepth, 10))
 	}
 
 	h, herr := hashstructure.Hash(elem, nil)
